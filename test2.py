@@ -23,19 +23,19 @@ def placeStep(maze,step,cX,cY):
   steps = {}
   
   if(cX + 1 <= 9 and maze[cX + 1][cY] == '.'):
-    maze[cX+1][cY] = str(step)
+    maze[cX+1][cY] = step
     steps[cX+1]=cY
     
   if(cY + 1 <= 9 and maze[cX][cY + 1] == '.'):
-    maze[cX][cY+1] = str(step)
+    maze[cX][cY+1] = step
     steps[cX]=cY+1
     
   if(cX - 1 >= 0 and maze[cX - 1][cY] == '.'):
-    maze[cX-1][cY] = str(step)
+    maze[cX-1][cY] = step
     steps[cX-1]=cY
     
   if(cY - 1 >= 0 and maze[cX][cY - 1] == '.'):
-    maze[cX][cY-1] = str(step)
+    maze[cX][cY-1] = step
     steps[cX]=cY-1
     
   return steps
@@ -49,7 +49,7 @@ def solveMaze(): #go from 0,0 to 9,9 if possible
   yEnd, cY = 9,9  
   
   step = 1
-  maze[9][9]=0
+  maze[9][9]='x'
   
   allSteps = []
   steps = {xEnd:yEnd}
@@ -80,4 +80,66 @@ def solveMaze(): #go from 0,0 to 9,9 if possible
   
 def tracePath():
   maze = solveMaze()
+  
+  x,y = 0,0
+  exit = False
+  
+  while((x!= 9 or y!= 9) and not exit):
+    dir = {}
+    
+    if(x + 1 <= 9 and maze[x + 1][y] != '.' and maze[x + 1][y] != 'w'):
+      dir['right'] = maze[x + 1][y]      
+      
+    if(x - 1 >= 0 and maze[x - 1][y] != '.' and maze[x - 1][y] != 'w'):
+      dir['left'] = maze[x - 1][y]
+            
+    if(y - 1 >= 0 and maze[x][y - 1] != '.' and maze[x][y-1] != 'w'):
+      dir['up'] = maze[x][y - 1]
+      
+    if(y + 1 <= 9 and maze[x][y + 1] != '.' and maze[x][y+1] != 'w'):
+      dir['down'] = maze[x][y + 1]
+      
+    vals = []
+    for key, value in dir.items():
+      if(value == 'x'):
+        print('done')
+        exit=True
+        break
+      if(value!=0):
+        print(value)
+        vals.append(value)
+    
+    if(len(vals)>0):
+      vals.sort()
+      theKey = ''
+      for key, value in dir.items():
+        if(vals[0] == value):
+          print(vals[0],':',key)
+          theKey = key
+          break
+      
+      print(theKey)
+        
+      if(theKey == 'right'):
+        maze[x+1][y]=0
+        x+=1
+      elif(theKey == 'left'):
+        maze[x-1][y]=0
+        x-=1
+      elif(theKey == 'up'):
+        maze[x][y-1]=0
+        y-=1
+      elif(theKey == 'down'):
+        maze[x][y+1]=0
+        y+=1
+      for row in maze:
+        print(row)
+     # break
+    
+tracePath()
+
+  
+  
+  
+  
   
