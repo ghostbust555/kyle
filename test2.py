@@ -13,10 +13,11 @@ def generateMaze():
     for y in range(10):
       maze[x][y] = '.' if random.randint(0,3) else 'w'     
     print(row)
-    
+  
+  print()  
   maze[0][0]='.'
   maze[9][9]='.'
-  print()
+  
   return maze
 
 def placeStep(maze,step,cX,cY):
