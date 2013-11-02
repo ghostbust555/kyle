@@ -76,6 +76,7 @@ def solveMaze(): #go from 0,0 to 9,9 if possible
       exit = True
     pX,pY=cX,cY
   print("DONE")
+  print("Blake has a vag")
   
   return maze
   
